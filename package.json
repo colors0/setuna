@@ -2,9 +2,9 @@
   "name": "setuna",
   "version": "1.0.0",
   "description": "chat",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "start":"node app.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -15,17 +15,8 @@
   "bugs": {
     "url": "https://github.com/moguchoco/setuna/issues"
   },
-  // 開発版で依存してるライブラリ. テストで使うとかそんなやつ.
-  // npm install でインストール or アップデートされる.
-  "devDependencies": {
-    "socket.io": "1.2.1"
-  },
-  // 本番版で依存してるライブラリ.
-  "peerDependencies": {
-    "socket.io": "1.2.1"
-  },
-
-  "homepage": "https://github.com/moguchoco/setuna"
-
+  "homepage": "https://github.com/moguchoco/setuna",
+  "dependencies": {
+    "socket.io": "^1.2.1"
+  }
 }
-
