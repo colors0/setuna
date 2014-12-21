@@ -11,6 +11,7 @@ function handler(req,res){
             res.writeHead(500);
             return res.end('Error');
         }
+
         res.writeHead(200);
         res.write(data);
         res.end();
