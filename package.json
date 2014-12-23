@@ -1,22 +1,26 @@
 {
-  "name": "setuna",
-  "version": "1.0.0",
-  "description": "chat",
-  "main": "app.js",
+  "name": "node-js-getting-started",
+  "version": "0.1.2",
+  "description": "A sample Node.js app using Express 4",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "~4.9.x",
+    "socket.io": "^0.8.7"
+  },
+  "engines": {
+    "node": "0.10.x"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/moguchoco/setuna.git"
+    "url": "https://github.com/heroku/node-js-getting-started"
   },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/moguchoco/setuna/issues"
-  },
-  "homepage": "https://github.com/moguchoco/setuna",
-  "dependencies": {
-    "socket.io": "^1.2.1"
-  }
+  "keywords": [
+    "node",
+    "heroku",
+    "express"
+  ],
+  "license": "MIT"
 }

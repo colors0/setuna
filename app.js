@@ -1,26 +1,49 @@
+var express = require('express')
+    , routes = require('./routes');
 
-var app = require('http').createServer(handler),
-    io = require('socket.io').listen(app),
-    fs = require('fs');
+var app = module.exports = express.createServer();
 
-app.listen(1337);
-io.set('log level',1);
-function handler(req,res){
-    fs.readFile(__dirname + '/index.html',function(err,data){
-        if(err){
-            res.writeHead(500);
-            return res.end('Error');
-        }
+// Configuration
 
-        res.writeHead(200);
-        res.write(data);
-        res.end();
-    })
-}
+app.configure(function(){
+    app.set('views', __dirname + '/views');
+    app.set('view engine', 'ejs');
+    app.use(express.bodyParser());
+    app.use(express.methodOverride());
+    app.use(app.router);
+    app.use(express.static(__dirname + '/public'));
+});
 
-io.sockets.on('connection',function(socket){
-   socket.on('emit_form_client',function(data){
-       console.log(data);
-       io.sockets.emit('emit_from_server','hello form server:' + data);
-   }) ;
+app.configure('development', function(){
+    app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+});
+
+app.configure('production', function(){
+    app.use(express.errorHandler());
+});
+
+// Routes
+
+app.get('/', routes.index);
+
+app.listen(3000, function(){
+    console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
+});
+
+//※ここから追記
+//socket
+
+var io = require('socket.io').listen(app);
+io.sockets.on('connection', function (socket) {
+    //クライアント側からのイベントを受け取る。
+    socket.on('msg send', function (msg) {
+        //イベントを実行した方に実行する
+        socket.emit('msg push', msg);
+        //イベントを実行した方以外に実行する
+        socket.broadcast.emit('msg push', msg);
+    });
+    //接続が解除された時に実行する
+    socket.on('disconnect', function() {
+        log('disconnected');
+    });
 });
